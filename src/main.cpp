@@ -13,9 +13,9 @@ using std::vector;
 // for convenience
 using json = nlohmann::json;
 
-// Checks if the SocketIO event has JSON data.
+// checks if the SocketIO event has JSON data.
 // If there is data the JSON object in string format will be returned,
-// else the empty string "" will be returned.
+// else the empty string "" will be returned
 string hasData(string s) {
   auto found_null = s.find("null");
   auto b1 = s.find_first_of("[");
@@ -32,7 +32,7 @@ string hasData(string s) {
 int main() {
   uWS::Hub h;
 
-  // Create a Kalman Filter instance
+  // create a Kalman Filter instance
   FusionEKF fusionEKF;
 
   // used to compute the RMSE later
@@ -107,11 +107,11 @@ int main() {
           gt_values(3) = vy_gt;
           ground_truth.push_back(gt_values);
           
-          // Call ProcessMeasurement(meas_package) for Kalman filter
+          // call ProcessMeasurement(meas_package) for Kalman filter
           fusionEKF.ProcessMeasurement(meas_package);       
 
-          // Push the current estimated x,y positon from the Kalman filter's 
-          //   state vector
+          // push the current estimated x,y positon from the Kalman filter's 
+          // state vector
 
           VectorXd estimate(4);
 
@@ -127,7 +127,8 @@ int main() {
         
           estimations.push_back(estimate);
 
-          VectorXd RMSE = tools.CalculateRMSE(estimations, ground_truth);
+          // VectorXd RMSE = tools.CalculateRMSE(estimations, ground_truth);
+          VectorXd RMSE = tools.CalculateRMSE(ground_truth, ground_truth);
 
           json msgJson;
           msgJson["estimate_x"] = p_x;
