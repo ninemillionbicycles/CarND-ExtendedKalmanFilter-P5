@@ -4,7 +4,6 @@
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
-using std::vector;
 
 KalmanFilter::KalmanFilter() {}
 
